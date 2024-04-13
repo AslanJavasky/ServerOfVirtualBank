@@ -1,0 +1,19 @@
+{
+  "name": "serverofvirtualbank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ServerOfVirtualBankApplication.kt",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AslanJavasky/ServerOfVirtualBank.git"
+  },
+  "author": "AslanJavasky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AslanJavasky/ServerOfVirtualBank/issues"
+  },
+  "homepage": "https://github.com/AslanJavasky/ServerOfVirtualBank#readme"
+}
