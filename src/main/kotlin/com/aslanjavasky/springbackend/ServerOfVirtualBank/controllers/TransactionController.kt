@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/rest/transactions")
 class TransactionController(
         private val transactionService: TransactionService,
         private val accountService: AccountService) {

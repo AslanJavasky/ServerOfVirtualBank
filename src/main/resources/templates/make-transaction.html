@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Transaction</title>
+    <!-- Add your CSS files here -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Make a Transaction</h1>
+</header>
+<section>
+    <!-- Form for making a transaction -->
+    <form th:action="@{/transactions/transfer}" method="post">
+        <!-- Source Account ID -->
+        <label for="sourceAccountId">Source Account ID:</label>
+        <input type="text" id="sourceAccountId" name="sourceAccountId">
+        <br>
+        <!-- Target Account ID -->
+        <label for="targetAccountId">Target Account ID:</label>
+        <input type="text" id="targetAccountId" name="targetAccountId">
+        <br>
+        <!-- Amount Galleons -->
+        <label for="amountGalleons">Amount Galleons:</label>
+        <input type="text" id="amountGalleons" name="amountGalleons">
+        <br>
+        <!-- Amount Sickles -->
+        <label for="amountSickles">Amount Sickles:</label>
+        <input type="text" id="amountSickles" name="amountSickles">
+        <br>
+        <!-- Amount Knuts -->
+        <label for="amountKnuts">Amount Knuts:</label>
+        <input type="text" id="amountKnuts" name="amountKnuts">
+        <br>
+        <!-- Description -->
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
+        <br>
+        <input type="submit" value="Make Transaction">
+    </form>
+</section>
+
+</body>
+</html>

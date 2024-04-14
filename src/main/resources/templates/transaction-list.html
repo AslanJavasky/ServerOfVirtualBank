@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction List</title>
+    <!-- Здесь можно подключить стили, скрипты и другие ресурсы -->
+</head>
+<body>
+<h1>Transaction List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Source Account</th>
+        <th>Target Account</th>
+        <th>Amount Galleons</th>
+        <th>Amount Sickles</th>
+        <th>Amount Knuts</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">
+        <td th:text="${transaction.id}">ID</td>
+        <td th:text="${transaction.sourceAccount.email}">Source Account</td>
+        <td th:text="${transaction.targetAccount.email}">Target Account</td>
+        <td th:text="${transaction.amountGalleons}">Amount Galleons</td>
+        <td th:text="${transaction.amountSickles}">Amount Sickles</td>
+        <td th:text="${transaction.amountKnuts}">Amount Knuts</td>
+        <td th:text="${transaction.description}">Description</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

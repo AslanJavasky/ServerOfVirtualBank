@@ -12,13 +12,15 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class TransactionService(private val transactionRepository: TransactionRepository,
-                         private val accountService: AccountService,
-                         private val currencyConversionUtils: CurrencyConversionUtils) {
+class TransactionService(
+    private val transactionRepository: TransactionRepository,
+    private val accountService: AccountService,
+    private val currencyConversionUtils: CurrencyConversionUtils
+) {
 
     fun transferMoney(
-            sourceAccount: Account, targetAccount: Account,
-            amountGalleons: Int, amountSickles: Int, amountKnuts: Int, description: String
+        sourceAccount: Account, targetAccount: Account,
+        amountGalleons: Int, amountSickles: Int, amountKnuts: Int, description: String
     ): Transaction {
         // Проверяем достаточно ли средств на счете для выполнения транзакции
         if (!areSufficientFunds(sourceAccount, amountGalleons, amountSickles, amountKnuts)) {
@@ -27,31 +29,32 @@ class TransactionService(private val transactionRepository: TransactionRepositor
 
         // Переводим средства  и обновляем балансы
         accountService.transferAndupdateAccountBalance(
-                sourceAccount.id!!, targetAccount.id!!,
-                amountGalleons, amountSickles, amountKnuts
+            sourceAccount.id!!, targetAccount.id!!,
+            amountGalleons, amountSickles, amountKnuts
         )
 
         // Создаем новую транзакцию
         val transaction = Transaction(
-                sourceAccount = sourceAccount,
-                targetAccount = targetAccount,
-                amountGalleons = amountGalleons,
-                amountSickles = amountSickles,
-                amountKnuts = amountKnuts,
-                description = description,
-                transactionType = TransactionType.TRANSFER
+            sourceAccount = sourceAccount,
+            targetAccount = targetAccount,
+            amountGalleons = amountGalleons,
+            amountSickles = amountSickles,
+            amountKnuts = amountKnuts,
+            description = description,
+            transactionType = TransactionType.TRANSFER
         )
         // Сохраняем транзакцию
         return transactionRepository.save(transaction)
     }
 
     private fun areSufficientFunds(
-            account: Account, amountGalleons: Int, amountSickles: Int, amountKnuts: Int): Boolean {
+        account: Account, amountGalleons: Int, amountSickles: Int, amountKnuts: Int
+    ): Boolean {
         // Переводим сумму транзакции в кнуты для удобства сравнения
         val totalTransactionAmountInKnuts =
-                currencyConversionUtils.convertGalleonsToKnuts(amountGalleons) +
-                        currencyConversionUtils.convertSicklesToKnuts(amountSickles) +
-                        amountKnuts
+            currencyConversionUtils.convertGalleonsToKnuts(amountGalleons) +
+                    currencyConversionUtils.convertSicklesToKnuts(amountSickles) +
+                    amountKnuts
 
         // Считаем суммарное количество кнутов на счете
         val totalBalanceInKnuts = currencyConversionUtils.convertGalleonsToKnuts(account.balanceGalleons)
@@ -63,8 +66,8 @@ class TransactionService(private val transactionRepository: TransactionRepositor
 
     fun getTransactionById(transactionId: Long): Transaction {
         return transactionRepository
-                .findById(transactionId)
-                .orElseThrow { EntityNotFoundException("Transaction not found with id: $transactionId") }
+            .findById(transactionId)
+            .orElseThrow { EntityNotFoundException("Transaction not found with id: $transactionId") }
     }
 
     fun getTransactionHistoryForAccount(accountId: Long): List<Transaction> {
@@ -91,11 +94,11 @@ class TransactionService(private val transactionRepository: TransactionRepositor
 
         // Создаем и сохраняем транзакцию
         val transaction = Transaction(
-                sourceAccount = account,
-                transactionType = TransactionType.CONVERSION,
-                amountGalleons = -amountGalleons,
-                amountSickles = totalSickles,
-                description = "Conversion of $amountGalleons Galleons to $totalSickles Sickles"
+            sourceAccount = account,
+            transactionType = TransactionType.CONVERSION,
+            amountGalleons = -amountGalleons,
+            amountSickles = totalSickles,
+            description = "Conversion of $amountGalleons Galleons to $totalSickles Sickles"
         )
         transactionRepository.save(transaction)
 
@@ -117,11 +120,11 @@ class TransactionService(private val transactionRepository: TransactionRepositor
         if (totalGalleons > 0) {
             // Создаем и сохраняем транзакцию
             val transaction = Transaction(
-                    sourceAccount = account,
-                    transactionType = TransactionType.CONVERSION,
-                    amountSickles = -amountSickles,
-                    amountGalleons = totalGalleons,
-                    description = "Conversion of $amountSickles Sickles to $totalGalleons Galleons"
+                sourceAccount = account,
+                transactionType = TransactionType.CONVERSION,
+                amountSickles = -amountSickles,
+                amountGalleons = totalGalleons,
+                description = "Conversion of $amountSickles Sickles to $totalGalleons Galleons"
             )
             transactionRepository.save(transaction)
 
@@ -143,11 +146,11 @@ class TransactionService(private val transactionRepository: TransactionRepositor
 
         // Создаем и сохраняем транзакцию
         val transaction = Transaction(
-                sourceAccount = account,
-                transactionType = TransactionType.CONVERSION,
-                amountSickles = -amountSickles,
-                amountKnuts = totalKnuts,
-                description = "Conversion of $amountSickles Sickles to $totalKnuts Knuts"
+            sourceAccount = account,
+            transactionType = TransactionType.CONVERSION,
+            amountSickles = -amountSickles,
+            amountKnuts = totalKnuts,
+            description = "Conversion of $amountSickles Sickles to $totalKnuts Knuts"
         )
         transactionRepository.save(transaction)
 
@@ -168,11 +171,11 @@ class TransactionService(private val transactionRepository: TransactionRepositor
         if (totalGalleons > 0) {
             // Создаем и сохраняем транзакцию
             val transaction = Transaction(
-                    sourceAccount = account,
-                    transactionType = TransactionType.CONVERSION,
-                    amountKnuts = -amountKnuts,
-                    amountGalleons = totalGalleons,
-                    description = "Conversion of $amountKnuts Knuts to $totalGalleons Galleons"
+                sourceAccount = account,
+                transactionType = TransactionType.CONVERSION,
+                amountKnuts = -amountKnuts,
+                amountGalleons = totalGalleons,
+                description = "Conversion of $amountKnuts Knuts to $totalGalleons Galleons"
             )
             transactionRepository.save(transaction)
 
@@ -196,11 +199,11 @@ class TransactionService(private val transactionRepository: TransactionRepositor
         if (totalSickles > 0) {
             // Создаем и сохраняем транзакцию
             val transaction = Transaction(
-                    sourceAccount = account,
-                    transactionType = TransactionType.CONVERSION,
-                    amountKnuts = -amountKnuts,
-                    amountSickles = totalSickles,
-                    description = "Conversion of $amountKnuts Knuts to $totalSickles Sickles"
+                sourceAccount = account,
+                transactionType = TransactionType.CONVERSION,
+                amountKnuts = -amountKnuts,
+                amountSickles = totalSickles,
+                description = "Conversion of $amountKnuts Knuts to $totalSickles Sickles"
             )
             transactionRepository.save(transaction)
 
@@ -222,11 +225,11 @@ class TransactionService(private val transactionRepository: TransactionRepositor
 
         // Создаем и сохраняем транзакцию
         val transaction = Transaction(
-                sourceAccount = account,
-                transactionType = TransactionType.CONVERSION,
-                amountGalleons = -amountGalleons,
-                amountKnuts = totalKnuts,
-                description = "Conversion of $amountGalleons Galleons to $totalKnuts Knuts"
+            sourceAccount = account,
+            transactionType = TransactionType.CONVERSION,
+            amountGalleons = -amountGalleons,
+            amountKnuts = totalKnuts,
+            description = "Conversion of $amountGalleons Galleons to $totalKnuts Knuts"
         )
         transactionRepository.save(transaction)
 
@@ -235,6 +238,8 @@ class TransactionService(private val transactionRepository: TransactionRepositor
         account.balanceKnuts += totalKnuts
         accountService.updateAccount(accountId, account)
     }
+
+    fun getAllTransactions() = transactionRepository.findAll()
 
 
 }

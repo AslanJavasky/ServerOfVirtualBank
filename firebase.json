@@ -1,16 +1,11 @@
 {
   "hosting": {
-    "public": "y",
+    "site": "serverofvirtualbank-2fb8b",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   },
   "functions": [

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Bank</title>
+    <!-- Add your CSS files here -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Welcome to Gringotts Virtual Bank</h1>
+</header>
+<nav>
+    <ul>
+        <li><a th:href="@{/accounts}">Accounts</a></li>
+        <li><a th:href="@{/transactions}">Transactions</a></li>
+        <!-- Add more navigation links as needed -->
+    </ul>
+</nav>
+<section>
+    <!-- Your main content goes here -->
+    <h2>Recent Transactions</h2>
+    <ul>
+        <li th:each="transaction : ${transactions}">
+            <span th:text="${transaction.description}"></span>
+            <!-- Add more transaction details as needed -->
+        </li>
+    </ul>
+</section>
+</body>
+</html>

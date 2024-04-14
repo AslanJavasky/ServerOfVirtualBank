@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Details</title>
+    <!-- Add your CSS files here -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Account Details</h1>
+</header>
+<section>
+    <!-- Display account details -->
+    <h2 th:text="${account.firstName} + ' ' + ${account.lastName}"></h2>
+    <p>Email: <span th:text="${account.email}"></span></p>
+    <p>Hogwarts House: <span th:text="${account.hogwartsHouse}"></span></p>
+</section>
+
+</body>
+</html>

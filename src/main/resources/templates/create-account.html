@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <!-- Add your CSS files here -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>Create an Account</h1>
+</header>
+<section>
+    <!-- Form for creating an account -->
+    <form th:action="@{/accounts/create}" method="post">
+        <!-- First Name -->
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName">
+        <br>
+        <!-- Last Name -->
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName">
+        <br>
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <br>
+        <!-- Hogwarts House -->
+        <label for="hogwartsHouse">Hogwarts House:</label>
+        <input type="text" id="hogwartsHouse" name="hogwartsHouse">
+        <br>
+        <input type="submit" value="Create Account">
+    </form>
+</section>
+
+</body>
+</html>

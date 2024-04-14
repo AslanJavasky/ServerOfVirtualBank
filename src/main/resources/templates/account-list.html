@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account List</title>
+    <!-- Здесь можно подключить стили, скрипты и другие ресурсы -->
+</head>
+<body>
+<h1>Account List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Hogwarts House</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.email}">Email</td>
+        <td th:text="${account.firstName}">First Name</td>
+        <td th:text="${account.lastName}">Last Name</td>
+        <td th:text="${account.hogwartsHouse}">Hogwarts House</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
